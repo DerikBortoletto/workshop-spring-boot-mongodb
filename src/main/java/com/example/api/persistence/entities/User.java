@@ -1,17 +1,15 @@
 package com.example.api.persistence.entities;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity(name = "user")
+@Document(collection = "user")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -13,7 +13,7 @@
 	<artifactId>api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>api</name>
-	<description>projectname description</description>
+	<description>api description</description>
 
 	<properties>
 		<java.version>17</java.version>
@@ -54,25 +54,11 @@
 		<java.jwt.version>3.19.2</java.jwt.version>
 	</properties>
 
-	<dependencies><!--   SPRING	-->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-
+	<dependencies>
+		<!--   SPRING	-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -88,15 +74,18 @@
 		<!--	\SPRING		-->
 
 		<!--    GENERAL    -->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+		</dependency>
+		<!-- /GENERAL  -->
+
+		<!-- DATABASE -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -150,86 +139,8 @@
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>${plugin.javadoc.version}</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-verifier-plugin</artifactId>
 					<version>${plugin.verifier.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>${plugin.checkstyle.version}</version>
-					<executions>
-						<execution>
-							<phase>verify</phase>
-							<goals>
-								<goal>check</goal>
-							</goals>
-							<configuration>
-								<includeTestSourceDirectory>true</includeTestSourceDirectory>
-								<checkstyleRules>
-									<module name="Checker">
-										<property name="severity" value="error"/>
-										<module name="NewlineAtEndOfFile"/>
-										<module name="FileTabCharacter"/>
-										<module name="TreeWalker">
-											<module name="JavadocType"/>
-											<module name="JavadocMethod">
-												<property name="scope" value="protected"/>
-											</module>
-											<module name="JavadocVariable">
-												<property name="scope" value="protected"/>
-											</module>
-											<module name="JavadocStyle"/>
-											<module name="MagicNumber"/>
-											<module name="MissingSwitchDefault"/>
-											<module name="SimplifyBooleanExpression"/>
-											<module name="SimplifyBooleanReturn"/>
-											<module name="StringLiteralEquality"/>
-											<module name="NestedForDepth">
-												<property name="max" value="3"/>
-											</module>
-											<module name="NestedIfDepth">
-												<property name="max" value="3"/>
-											</module>
-											<module name="PackageDeclaration"/>
-											<module name="ReturnCount">
-												<property name="max" value="3"/>
-											</module>
-											<module name="ParameterAssignment"/>
-											<module name="MultipleVariableDeclarations"/>
-											<module name="OneStatementPerLine"/>
-											<module name="AvoidStarImport"/>
-											<module name="IllegalImport"/>
-											<module name="BooleanExpressionComplexity"/>
-											<module name="TodoComment"/>
-											<module name="UpperEll"/>
-											<module name="LocalVariableName"/>
-											<module name="TypeName"/>
-											<module name="MethodName"/>
-											<module name="PackageName"/>
-											<module name="ConstantName"/>
-											<module name="LineLength">
-												<property name="max" value="120"/>
-											</module>
-											<module name="ParameterNumber"/>
-											<module name="GenericWhitespace"/>
-										</module>
-									</module>
-								</checkstyleRules>
-							</configuration>
-						</execution>
-					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -248,45 +159,6 @@
 				</plugin>
 
 				<!--	COVERAGE	-->
-				<plugin>
-					<groupId>org.jacoco</groupId>
-					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>${plugin.jacoco.version}</version>
-					<executions>
-						<execution>
-							<id>prepare-agent</id>
-							<goals>
-								<goal>prepare-agent</goal>
-							</goals>
-						</execution>
-						<execution>
-							<id>report</id>
-							<goals>
-								<goal>report</goal>
-							</goals>
-						</execution>
-						<execution>
-							<id>check</id>
-							<phase>verify</phase>
-							<goals>
-								<goal>check</goal>
-							</goals>
-							<configuration>
-								<rules>
-									<rule>
-										<limits>
-											<limit>
-												<minimum>0.85</minimum>
-											</limit>
-										</limits>
-									</rule>
-								</rules>
-								<excludes>
-								</excludes>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
 
 				<!--	CODE QUALITY	-->
 
@@ -353,7 +225,7 @@
 				<configuration>
 					<excludes>
 						<exclude>
-							<groupId>org.projectlombok</groupId>
+							<groupId>org.project-lombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>

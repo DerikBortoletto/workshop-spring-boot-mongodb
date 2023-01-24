@@ -1,6 +1,8 @@
 package com.example.api.web.controller;
 
 import com.example.api.persistence.entities.User;
+import com.example.api.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,12 +16,16 @@ import java.util.List;
 @RequestMapping(value = "/users")
 public class UserController {
 
+    private final UserService service;
+
+    public UserController(UserService service) {
+        this.service = service;
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<User>> findAll() {
-        User julio = new User("1", "Julio Grey", "julioflex@gmail.com");
-        User julia = new User("2", "Julia Afonso", "afonsinha@gmail.com");
-        List<User> list = new ArrayList<>();
-        list.addAll(Arrays.asList(julio, julia));
+
+        List<User> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 }
