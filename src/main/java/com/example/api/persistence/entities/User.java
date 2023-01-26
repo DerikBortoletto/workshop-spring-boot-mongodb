@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Document(collection = "user")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
