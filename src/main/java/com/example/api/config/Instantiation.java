@@ -4,6 +4,7 @@ import com.example.api.persistence.entities.Post;
 import com.example.api.persistence.entities.User;
 import com.example.api.persistence.repository.PostRepository;
 import com.example.api.persistence.repository.UserRepository;
+import com.example.api.web.dto.AuthorDTO;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
@@ -38,13 +39,14 @@ public class Instantiation implements CommandLineRunner {
         User alex = new User(null, "Alex Green", "alex@gmail.com");
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
+        userRepository.saveAll(Arrays.asList(maria, alex, bob));
+
         Post post1 = new Post(null, sdf.parse("21/03/2023"),
-                "Partiu Viagem!", "Vou viajar para São Paulo. Abraços!", maria);
+                "Partiu Viagem!", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(maria));
 
         Post post2 = new Post(null, sdf.parse("25/03/2023"),
-                "Bom dia", "Acordei feliz hoje!", maria);
-
-        userRepository.saveAll(Arrays.asList(maria, alex, bob));
+                "Bom dia", "Acordei feliz hoje!", new AuthorDTO(maria));
+        
         postRepository.saveAll(Arrays.asList(post1, post2));
     }
 }

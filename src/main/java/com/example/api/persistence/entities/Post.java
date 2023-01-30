@@ -1,5 +1,6 @@
 package com.example.api.persistence.entities;
 
+import com.example.api.web.dto.AuthorDTO;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -39,7 +40,7 @@ public class Post implements Serializable {
 
     @Getter
     @Setter
-    private User author;
+    private AuthorDTO author;
 
     @Override
     public boolean equals(Object o) {
