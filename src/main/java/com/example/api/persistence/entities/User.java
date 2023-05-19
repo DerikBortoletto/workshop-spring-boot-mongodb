@@ -4,16 +4,24 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-@Builder
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Document(collection = "user")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    public User(String id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -28,6 +36,11 @@ public class User implements Serializable {
     @Getter
     @Setter
     private String email;
+
+    @DBRef(lazy = true)
+    @Getter
+    @Setter
+    private List<Post> posts = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

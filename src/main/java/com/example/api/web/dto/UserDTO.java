@@ -1,9 +1,13 @@
 package com.example.api.web.dto;
 
+import com.example.api.persistence.entities.Post;
 import com.example.api.persistence.entities.User;
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 public class UserDTO implements Serializable {
